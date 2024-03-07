@@ -1,7 +1,7 @@
 {
-  "name": "testes",
+  "name": "todolist",
   "version": "1.0.0",
-  "description": "",
+  "description": "Aula introdutoria sobre git",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^20.11.20",
+    "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.1.0",
     "@typescript-eslint/parser": "^7.1.0",
     "eslint": "^8.57.0",
