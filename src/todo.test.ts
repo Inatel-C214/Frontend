@@ -33,7 +33,7 @@ describe('ToDoList', () => {
       const returnedTasks = todoList.getTasks()
       returnedTasks[0].description = 'Modified description' // Modify the returned task
 
-      expect(todoList.getTasks()[0].description).not.toEqual('Modified description') // Original task is not modified
+      expect(todoList.getTasks()[0].description).toEqual(anyTask.description) // Original task is not modified
     })
   })
 
