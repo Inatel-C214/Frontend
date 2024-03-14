@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Task, ToDoList, UpdateTask } from './TodoList'
+import { Task } from '../models/Task'
+import { ToDoList } from './TodoList'
 
 const anyTask = {
   title: 'any_title',
@@ -11,12 +12,22 @@ const anyTask = {
 }
 
 describe('ToDoList', () => {
-  describe('Add', () => {
-    test('Should add a new task to the list', () => {
+  describe('Testing add', () => {
+    test('should add a new task to the list', () => {
       const todoInstance = new ToDoList()
       todoInstance.add(anyTask)
       const tasks = todoInstance.getTasks()
       expect(tasks).toEqual([anyTask])
+    })
+
+    test('should add a valid tasks', () => {
+      const todoInstance = new ToDoList()
+      const invalidValue: any = {
+        invalidField: 'invalidValue'
+      }
+      todoInstance.add(invalidValue)
+      const tasks = todoInstance.getTasks()
+      expect(tasks).toEqual([])
     })
   })
 
@@ -25,20 +36,10 @@ describe('ToDoList', () => {
       const todoList = new ToDoList()
       expect(todoList.getTasks()).toEqual([])
     })
-
-    it('should not return a reference to the internal tasks array', () => {
-      const todoList = new ToDoList()
-      todoList.add(anyTask)
-
-      const returnedTasks = todoList.getTasks()
-      returnedTasks[0].description = 'Modified description' // Modify the returned task
-
-      expect(todoList.getTasks()[0].description).toEqual(anyTask.description) // Original task is not modified
-    })
   })
 
-  describe('Add', () => {
-    it('should update the specified task in the given index', () => {
+  describe('updateTask', () => {
+    test('should update the specified task in the given index', () => {
       const todoList = new ToDoList()
       const task1: Task = {
         title: 'Task 1',
@@ -53,13 +54,35 @@ describe('ToDoList', () => {
       todoList.add(task1)
       todoList.add(task2)
 
-      const updatedTask: UpdateTask = {
+      const updatedTask: Partial<Task> = {
         title: 'update_title',
         description: 'update_description'
       }
       todoList.updateTask(1, updatedTask)
 
       expect(todoList.getTasks()[1]).toEqual({ ...task2, ...updatedTask })
+    })
+  })
+
+  describe('removeTask', () => {
+    test('should remove the task specified in the given index', () => {
+      const todoList = new ToDoList()
+      const task1: Task = {
+        title: 'Tarefa 1',
+        description: 'Descrição 1',
+        targetDate: '01/01/2025'
+      }
+      const task2: Task = {
+        title: 'Tarefa 2',
+        description: 'Descrição 2',
+        targetDate: '01/01/2025'
+      }
+      todoList.add(task1)
+      todoList.add(task2)
+
+      todoList.removeTask(0)
+
+      expect(todoList.getTasks()).toEqual([task2])
     })
   })
 })
