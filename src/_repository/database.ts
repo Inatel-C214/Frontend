@@ -1,16 +1,16 @@
 import { Sequelize, DataTypes, Optional, Model } from 'sequelize'
 import { Task } from '../models/Task'
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
   dialect: 'sqlite',
-  storage: 'database.db'
+  storage: 'database.sqlite'
 })
 
-type TaskAttributes = Optional<Task, 'id'>
+export type TaskAttributes = Optional<Task, 'id'>
 
 export const TaskModel = sequelize.define<Model<TaskAttributes>>('Task', {
   id: {
-    type: DataTypes.UUIDV4,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
@@ -35,7 +35,7 @@ export const TaskModel = sequelize.define<Model<TaskAttributes>>('Task', {
     allowNull: true
   },
   subTasks: {
-    type: DataTypes.STRING,
+    type: DataTypes.ARRAY(DataTypes.JSON),
     allowNull: true
   }
 })

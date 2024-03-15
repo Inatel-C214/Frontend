@@ -1,4 +1,4 @@
-import { TaskModel } from '../database/database'
+import { TaskModel } from './database'
 import { UpdateTask, Task } from '../models/Task'
 
 export async function createTask (task: Task): Promise< unknown[]> {

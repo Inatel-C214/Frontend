@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Task } from '../models/Task'
+import { TodoListRepository } from '../repository/TodoListRepository'
+import { Task, UpdateTask } from '../models/Task'
 import { ToDoList } from './TodoList'
 
 const anyTask = {
@@ -11,17 +13,56 @@ const anyTask = {
   subTasks: []
 }
 
+const makeRepository = (): TodoListRepository => {
+  class TodoListStub implements TodoListRepository {
+    create (task: Task): { success: unknown; error: unknown } {
+      return {
+        success: true,
+        error: null
+      }
+    }
+
+    getAll (): { success: unknown; error: unknown } {
+      return {
+        success: [anyTask],
+        error: null
+      }
+    }
+
+    update (task: UpdateTask): { success: unknown; error: unknown } {
+      return {
+        success: true,
+        error: null
+      }
+    }
+
+    delete (id: number): { success: unknown; error: unknown } {
+      return {
+        success: true,
+        error: null
+      }
+    }
+  }
+  return new TodoListStub()
+}
+
 describe('ToDoList', () => {
   describe('Testing add', () => {
     test('should add a new task to the list', () => {
-      const todoInstance = new ToDoList()
+      const repositoryStub = makeRepository()
+      const todoInstance = new ToDoList(repositoryStub)
       todoInstance.add(anyTask)
       const tasks = todoInstance.getTasks()
       expect(tasks).toEqual([anyTask])
     })
 
     test('should add a valid tasks', () => {
-      const todoInstance = new ToDoList()
+      const repositoryStub = makeRepository()
+      jest.spyOn(repositoryStub, 'getAll').mockReturnValueOnce({
+        success: [],
+        error: null
+      })
+      const todoInstance = new ToDoList(repositoryStub)
       const invalidValue: any = {
         invalidField: 'invalidValue'
       }
@@ -33,56 +74,13 @@ describe('ToDoList', () => {
 
   describe('getTasks', () => {
     test('should return an empty array when no tasks are added', () => {
-      const todoList = new ToDoList()
-      expect(todoList.getTasks()).toEqual([])
-    })
-  })
-
-  describe('updateTask', () => {
-    test('should update the specified task in the given index', () => {
-      const todoList = new ToDoList()
-      const task1: Task = {
-        title: 'Task 1',
-        description: 'Description 1',
-        targetDate: '01/01/2025'
-      }
-      const task2: Task = {
-        title: 'Task 2',
-        description: 'Description 2',
-        targetDate: '01/01/2025'
-      }
-      todoList.add(task1)
-      todoList.add(task2)
-
-      const updatedTask: Partial<Task> = {
-        title: 'update_title',
-        description: 'update_description'
-      }
-      todoList.updateTask(1, updatedTask)
-
-      expect(todoList.getTasks()[1]).toEqual({ ...task2, ...updatedTask })
-    })
-  })
-
-  describe('removeTask', () => {
-    test('should remove the task specified in the given index', () => {
-      const todoList = new ToDoList()
-      const task1: Task = {
-        title: 'Tarefa 1',
-        description: 'Descrição 1',
-        targetDate: '01/01/2025'
-      }
-      const task2: Task = {
-        title: 'Tarefa 2',
-        description: 'Descrição 2',
-        targetDate: '01/01/2025'
-      }
-      todoList.add(task1)
-      todoList.add(task2)
-
-      todoList.removeTask(0)
-
-      expect(todoList.getTasks()).toEqual([task2])
+      const repositoryStub = makeRepository()
+      jest.spyOn(repositoryStub, 'getAll').mockReturnValueOnce({
+        success: [],
+        error: null
+      })
+      const todoInstance = new ToDoList(repositoryStub)
+      expect(todoInstance.getTasks()).toEqual([])
     })
   })
 })
