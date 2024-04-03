@@ -187,8 +187,8 @@ function App() {
             <div
               style={{
                 overflowY: "scroll",
-                width: "70%",
-                margin: "1rem 0 2rem 0",
+                width: "100%",
+                margin: "1rem 0 1rem 0",
               }}
             >
               {tasksList.map((task) => (
@@ -196,7 +196,8 @@ function App() {
                   style={{
                     margin: "1rem",
                     background: "rgb(200, 200, 200)",
-                    padding: '0.5rem'
+                    padding: '0.5rem',
+                    borderRadius: 10
                   }}
                 >
                   <p>Titulo: {task.title}</p>
