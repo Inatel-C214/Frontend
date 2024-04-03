@@ -23,6 +23,8 @@ function App() {
     priority: "",
   });
 
+  const [action, setAction] = useState("create");
+
   const [tasksList, setTasksList] = useState<Task[]>([]);
 
   const onChangeInput = (field: string, data: string) => {
@@ -32,8 +34,11 @@ function App() {
     }));
   };
 
+  const onChangeAction = (data: string) => {
+    setAction(data);
+  };
+
   const createTask = () => {
-    console.log("FMD", formData);
     tasks.add(formData);
   };
 
@@ -48,129 +53,162 @@ function App() {
 
   useEffect(() => {
     getTasks();
-  })
+  });
 
   return (
     <>
       <div className="box">
-        <h1>ToDo List</h1>
-        <form className="form">
-          <div className="input-div">
-            <label>Nome</label>
-            <div
-              style={{
-                width: "10rem",
-              }}
-            >
-              <input
-                style={{
-                  width: "95%",
-                }}
-                type="text"
-                onChange={(e) => onChangeInput("title", e.target.value)}
-              ></input>
-            </div>
-          </div>
+        <h1 className="title">ToDo List</h1>
 
-          <div className="input-div">
-            <label>Data de entrega</label>
-            <div
-              style={{
-                width: "10rem",
-              }}
-            >
-              <input
-                style={{
-                  width: "95%",
-                }}
-                type="text"
-                onChange={(e) => onChangeInput("targetDate", e.target.value)}
-              ></input>
-            </div>
-          </div>
-
-          <div className="input-div">
-            <label>Tipo</label>
-            <div
-              style={{
-                width: "10rem",
-              }}
-            >
-              <input
-                style={{
-                  width: "95%",
-                }}
-                type="text"
-                onChange={(e) => onChangeInput("type", e.target.value)}
-              ></input>
-            </div>
-          </div>
-
-          <div className="input-div">
-            <label>Prioridade</label>
-            <div
-              style={{
-                width: "10rem",
-              }}
-            >
-              <select
-                style={{
-                  width: "100%",
-                }}
-                onChange={(e) => onChangeInput("priority", e.target.value)}
-              >
-                <option value="Alta">Alta</option>
-                <option value="Média">Média</option>
-                <option value="Baixa">Baixa</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="input-div">
-            <label>Descrição</label>
-            <div
-              style={{
-                width: "10rem",
-              }}
-            >
-              <textarea
-                rows={10}
-                style={{
-                  resize: "none",
-                  width: "95%",
-                }}
-                onChange={(e) => onChangeInput("description", e.target.value)}
-              ></textarea>
-            </div>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "right",
-            }}
-            className="input-div"
-          >
-            <button
-              style={{
-                borderRadius: 1,
-                width: "100px",
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                createTask();
-              }}
-            >
-              Salvar
-            </button>
-          </div>
-        </form>
-
-        <div>
-          {tasksList.map((task) => (
-            <div>Titulo: {task.title}</div>
-          ))}
+        <div className="select-action">
+          <select onChange={(e) => onChangeAction(e.target.value)}>
+            <option value="create">Criar Tarefa</option>
+            <option value="view">Visualizar Tarefas</option>
+          </select>
         </div>
+
+        {action === "create" && (
+          <form className="container">
+            <h2>Criar tarefa</h2>
+            <div className="input-div">
+              <label>Nome</label>
+              <div
+                style={{
+                  width: "10rem",
+                }}
+              >
+                <input
+                  style={{
+                    width: "95%",
+                  }}
+                  type="text"
+                  onChange={(e) => onChangeInput("title", e.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            <div className="input-div">
+              <label>Data de entrega</label>
+              <div
+                style={{
+                  width: "10rem",
+                }}
+              >
+                <input
+                  style={{
+                    width: "95%",
+                  }}
+                  type="text"
+                  onChange={(e) => onChangeInput("targetDate", e.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            <div className="input-div">
+              <label>Tipo</label>
+              <div
+                style={{
+                  width: "10rem",
+                }}
+              >
+                <input
+                  style={{
+                    width: "95%",
+                  }}
+                  type="text"
+                  onChange={(e) => onChangeInput("type", e.target.value)}
+                ></input>
+              </div>
+            </div>
+
+            <div className="input-div">
+              <label>Prioridade</label>
+              <div
+                style={{
+                  width: "10rem",
+                }}
+              >
+                <select
+                  style={{
+                    width: "100%",
+                  }}
+                  onChange={(e) => onChangeInput("priority", e.target.value)}
+                >
+                  <option value="Alta">Alta</option>
+                  <option value="Média">Média</option>
+                  <option value="Baixa">Baixa</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="input-div">
+              <label>Descrição</label>
+              <div
+                style={{
+                  width: "10rem",
+                }}
+              >
+                <textarea
+                  rows={10}
+                  style={{
+                    resize: "none",
+                    width: "95%",
+                  }}
+                  onChange={(e) => onChangeInput("description", e.target.value)}
+                ></textarea>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "right",
+              }}
+              className="input-div"
+            >
+              <button
+                style={{
+                  borderRadius: 1,
+                  width: "100px",
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  createTask();
+                }}
+              >
+                Salvar
+              </button>
+            </div>
+          </form>
+        )}
+
+        {action === "view" && (
+          <div className="container">
+            <div
+              style={{
+                overflowY: "scroll",
+                width: "70%",
+                margin: "1rem 0 2rem 0",
+              }}
+            >
+              {tasksList.map((task) => (
+                <div
+                  style={{
+                    margin: "1rem",
+                    background: "rgb(200, 200, 200)",
+                    padding: '0.5rem'
+                  }}
+                >
+                  <p>Titulo: {task.title}</p>
+                  <p>Descrição: {task.description}</p>
+                  <p>Prioridade: {task.priority}</p>
+                  <p>Tipo: {task.type}</p>
+                  <p>Data Limite: {task.targetDate}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
