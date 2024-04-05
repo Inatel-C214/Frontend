@@ -197,14 +197,15 @@ function App() {
                     margin: "1rem",
                     background: "rgb(200, 200, 200)",
                     padding: '0.5rem',
-                    borderRadius: 10
+                    borderRadius: 10,
+                    overflow: "hidden"
                   }}
                 >
-                  <p>Titulo: {task.title}</p>
-                  <p>Descrição: {task.description}</p>
-                  <p>Prioridade: {task.priority}</p>
-                  <p>Tipo: {task.type}</p>
-                  <p>Data Limite: {task.targetDate}</p>
+                  <p><b>Titulo:</b> {task.title}</p>
+                  <p><b>Descrição:</b> {task.description}</p>
+                  <p><b>Prioridade:</b> {task.priority}</p>
+                  <p><b>Tipo:</b> {task.type}</p>
+                  <p><b>Data Limite:</b> {task.targetDate}</p>
                 </div>
               ))}
             </div>
