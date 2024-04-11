@@ -1,5 +1,7 @@
 # AULA 02
 
+![CI-CD](https://github.com/Inatel-C214/Testes/actions/workflows/cicd.yml/badge.svg)
+
 ❕Erratas:
 - Durante a aula, cometi um pequeno equívoco na explicação do que é o EsLint.
   - O EsLint, é um linter, uma ferramenta de análise de código estática que analisa o código sem executá-lo, indicando padrões que podem ser prejudiciais para o projeto
