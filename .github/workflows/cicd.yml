@@ -7,8 +7,8 @@ on:
             - main
 
 jobs:
-    install:
-        name: install dependencies
+    test:
+        name: Running unit tests
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -24,10 +24,18 @@ jobs:
             - name: Run unit tests
               run: npm run test:unit
 
-    test:
-      name: install dependencies
-      needs: install
+    build:
+      name: Running build
       runs-on: ubuntu-latest
       steps:
+          - uses: actions/checkout@v4
+          - name: Use Node.js 20.11.1
+            uses: actions/setup-node@v4
+            with:
+              node-version: '20.11.1'
+
+          - name: Install dependencies
+            run: npm i
+
           - name: Run unit tests
-            run: npm run test:unit
+            run: npm run build
