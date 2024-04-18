@@ -1,58 +1,30 @@
-# AULA 02
+# React + TypeScript + Vite
 
-![CI-CD](https://github.com/Inatel-C214/Testes/actions/workflows/cicd.yml/badge.svg)
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-❕Erratas:
-- Durante a aula, cometi um pequeno equívoco na explicação do que é o EsLint.
-  - O EsLint, é um linter, uma ferramenta de análise de código estática que analisa o código sem executá-lo, indicando padrões que podem ser prejudiciais para o projeto
+Currently, two official plugins are available:
 
-- Estamos utilizando o NodeJS v20.11.1. Para melhor acompanhamento das aulas, é recomendado instalar a mesma versão em [nodejs.org](https://nodejs.org/en/)
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 📟 Comandos utilizados durante a aula:
+## Expanding the ESLint configuration
 
-### Configuração e instalação de bibliotecas
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- npm init -y
-  - Inicialização do projeto NodeJS
+- Configure the top-level `parserOptions` property like this:
 
-- npm install -D typescript
-  - Instalação do typescript, a linguagem de programação que estaremos utilizando durante o curso
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-- npm install -D @types/node
-  - Adiciona algumas tipagens
-
-- npx tsc --init
-  - Inicializa as configurações de compilação do typescript
-
-- npm install -D ts-node-dev
-  - Biblioteca para execução do código typescript
-
-- npm install husky
-  - Instalação do husky, uma biblioteca para execução de scripts com o git
-
-- npx husky init
-  - Configuração padrão do husky
-
-- npm i -D eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-standard
-  - Instalação do EsLint
-
-### Execução de scripts do NodeJS
-
-- npm start
-  - Executa o código em ambiente de desenvolvimento
-
-- npm run start:prod
-  - Compila e executa o código compilado em JavaScript
-
-- npm run build
-  - Compila o código para JavaScript
-
-## Links Úteis:
-
-- [EsLint](https://eslint.org/)
-
-- [Husky](https://typicode.github.io/husky/)
-
-- [Npm](https://www.npmjs.com/)
-
-- [NodeJs](https://nodejs.org/en/)
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
