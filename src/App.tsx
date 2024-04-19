@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { ToDoList } from "./ToDoList/services/TodoList";
 import { LocalStorageAdapter } from "./ToDoList/repository/LocalStorageAdapter";
-import { Task } from "./ToDoList/models/Task";
+// import { Task } from "./ToDoList/models/Task";
 
 type FormData = {
   title: string;
