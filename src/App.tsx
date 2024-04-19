@@ -58,7 +58,7 @@ function App() {
   return (
     <>
       <div className="box">
-        <h1 className="title">ToDo List</h1>
+        <h1 className="title">ToDo List Aula 8</h1>
 
         <div className="select-action">
           <select onChange={(e) => onChangeAction(e.target.value)}>
